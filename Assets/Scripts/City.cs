@@ -6,10 +6,10 @@ using TMPro;
 
 public class City : DestroyableProps
 {
-    private TextMeshProUGUI healthText;
+    private TextMeshProUGUI[] healthText;
     void Start()
     {
-        healthText = GetComponentInChildren<TextMeshProUGUI>();
+        healthText = GetComponentsInChildren<TextMeshProUGUI>();
         UpdateUI();
     }
 
@@ -25,6 +25,9 @@ public class City : DestroyableProps
 
     void UpdateUI()
     {
-        healthText.text = health.ToString();
+        foreach(TextMeshProUGUI text in healthText)
+        {
+            text.text = health.ToString();
+        }
     }
 }
