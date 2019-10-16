@@ -42,12 +42,16 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            GameObject.FindObjectOfType<GameManager>().SwitchMode();
             Launch();
         }
 
         if (actualSpeed > 0)
         {
             Move();
+        }
+        else {
+            actualSpeed = 0f;
         }
         //Debug.DrawRay(transform.position, -transform.up * 1f, Color.green, Mathf.Infinity);      
     }
@@ -84,6 +88,10 @@ public class PlayerController : MonoBehaviour
         actualSpeed = speed;
     }
 
+    public float GetSpeed() {
+        return actualSpeed;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Reflect(collision.contacts[0].normal);
@@ -101,5 +109,10 @@ public class PlayerController : MonoBehaviour
     {
         IHitable hitableObject = obj.GetComponent<IHitable>();
         hitableObject?.OnHit(damage);
+    }
+
+    private void OnGUI()
+    {
+        
     }
 }

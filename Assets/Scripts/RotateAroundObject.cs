@@ -5,16 +5,18 @@ using UnityEngine;
 public class RotateAroundObject : MonoBehaviour
 {
     [SerializeField]
-    private Transform objectToRotateAround;
+    protected Transform objectToRotateAround;
 
     [SerializeField]
-    private float rotationSpeed;
+    protected float rotationSpeed;
 
     private Vector2 direction;
 
     private Vector2 smoothValue = Vector2.zero;
 
-    private void Update()
+    public bool drag = true;
+
+    public virtual void Update()
     {
         if (Input.GetMouseButton(0))
         {
@@ -23,7 +25,7 @@ public class RotateAroundObject : MonoBehaviour
             direction = new Vector2(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
         }
 
-        else if ((direction.x > 0 || direction.y > 0))
+        else if ((direction.x > 0 || direction.y > 0)&&drag)
         {
             transform.RotateAround(objectToRotateAround.position, transform.up, direction.x * rotationSpeed);
             transform.RotateAround(objectToRotateAround.position, transform.right, direction.y * rotationSpeed);
